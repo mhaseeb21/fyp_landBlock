@@ -37,7 +37,7 @@ app.use("/api/login", async (req, res) => {
   try {
     const user = await User.findOne({
       email: req.body.email,
-      password: req.body.password,
+      // password: req.body.password,
     });
     if (!user) {
       return res
@@ -65,7 +65,7 @@ app.use("/", (req, res) => {
 
 const startServer = async () => {
   try {
-    connectDB(process.env.MONGO_URI);
+    connectDB(`mongodb://127.0.0.1:27017`);
     app.listen(5000, () => {
       console.log("Server is listening on port 5000");
     });

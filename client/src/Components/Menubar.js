@@ -19,9 +19,9 @@ const Menubar = () => {
   const menuItems = [
     { name: "Dashboard", icon: dashboard, link: "/dashboard" },
     {
-      name: "User Management",
+      name: "map",
       icon: user,
-      link: "/user-management",
+      link: "/map",
     },
     {
       name: "Customer Management",
