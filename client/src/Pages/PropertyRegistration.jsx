@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Menubar from "../Components/Menubar";
-import MenuToggle from "../Components/MenuToggle";
-import Navbar from "../Components/Navbar";
-// import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import ABI from "../Components/ABI.json"; // Assuming you have stored contract ABI in ABI.json
 
-const ContentManagement = () => {
-  const [showMenu, setShowMenu] = useState(false);
-
-  const handleMenuToggle = () => {
-    setShowMenu(!showMenu);
-  };
-
+const PropertyRegistration = () => 
+{
   const [web3, setWeb3] = useState(null);
   const [contractInstance, setContractInstance] = useState(null);
   const [propertyDetails, setPropertyDetails] = useState({
@@ -70,18 +61,7 @@ const ContentManagement = () => {
   };
 
   return (
-    <div className="flex">
-      <div
-        className={`w-1/4 h-auto bg-gray-200 text-gray-500 ${
-          showMenu ? "" : "hidden"
-        } lg:block`}>
-        <Menubar />
-      </div>
-      <div className="w-full h-screen">
-        <Navbar pagename={"Content Management"} />
-        <MenuToggle showMenu={showMenu} handleMenuToggle={handleMenuToggle} />
-       
-        <div class="container">
+    <div class="container">
   <h2>Property Registration</h2>
   <form onSubmit={handleSubmit}>
     <div class="mb-3">
@@ -120,24 +100,23 @@ const ContentManagement = () => {
     <button style={{color:"black"}} type="submit" class="btn btn-primary">Register Property</button>
   </form>
 </div>
-       
 
-
-
-
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-             </div>
-    </div>
   );
 };
 
-export default ContentManagement;
+export default PropertyRegistration;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

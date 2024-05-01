@@ -1,6 +1,6 @@
 import React from "react";
 import { demouser } from "../Assets/index";
-
+import Wallet from "../Components/Wallet"
 const Navbar = ({ pagename }) => {
   // const [userInfo, setUserInfo] = useState([]);
 
@@ -21,8 +21,8 @@ const Navbar = ({ pagename }) => {
           <img src={demouser} alt="avatar" className="rounded-full h-8 w-8" />
         </div>
         <div className="flex flex-col text-sm">
-          <span className="font-medium">John Doe</span>
-          <span>Super Admin</span>
+          <span className="font-medium"> <Wallet/> </span>
+          
         </div>
       </div>
     </nav>

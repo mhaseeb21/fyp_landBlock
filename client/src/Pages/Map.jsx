@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
+import { Link } from "react-router-dom";
 
 const Map = () => {
   const [map, setMap] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [properties, setProperties] = useState([]);
+  const [selectedProperty, setSelectedProperty] = useState(null);
 
   useEffect(() => {
-    // Check if google.maps is available
-    if (window.google && window.google.maps) {
+    const googleMapsScript = document.createElement("script");
+    googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBAH8vqZKf1P9kczPy2gdEAWlU-Syil6G4&libraries=geometry`;
+    googleMapsScript.async = true;
+    googleMapsScript.onload = () => {
       setIsLoaded(true);
-    } else {
-      // If not available, load the Google Maps API script
-      const googleMapsScript = document.createElement("script");
-      googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAjf0LKhpoO-RtRvcaaw4UY5RimcXmWwuE&libraries=geometry`;
-      googleMapsScript.async = true;
-      googleMapsScript.onload = () => {
-        setIsLoaded(true);
-      };
-      document.body.appendChild(googleMapsScript);
-    }
+    };
+    document.body.appendChild(googleMapsScript);
   }, []);
 
   useEffect(() => {
@@ -39,8 +36,30 @@ const Map = () => {
     }
   }, [isLoaded]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/getPropertyRegister");
+        const data = await response.json();
+        setProperties(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleMapLoad = (mapInstance) => {
     setMap(mapInstance);
+  };
+
+  const handleMarkerClick = (property) => {
+    setSelectedProperty(property);
+  };
+
+  const handleCloseInfoWindow = () => {
+    setSelectedProperty(null);
   };
 
   return (
@@ -52,7 +71,31 @@ const Map = () => {
           zoom={14}
           onLoad={handleMapLoad}
         >
-          <Marker position={userLocation} />
+          {properties.map((property) => (
+            <Marker
+              key={property._id}
+              position={{ lat: property.location.coordinates[1], lng: property.location.coordinates[0] }}
+              onClick={() => handleMarkerClick(property)}
+            />
+          ))}
+          {selectedProperty && (
+            <InfoWindow
+              position={{ lat: selectedProperty.location.coordinates[1], lng: selectedProperty.location.coordinates[0] }}
+              onCloseClick={handleCloseInfoWindow}
+            >
+              <div style={{ maxWidth: "200px", padding: "10px" }}>
+                <h3>{selectedProperty.ownerName}</h3>
+                <p>City: {selectedProperty.city}</p>
+                <p>Sub Area: {selectedProperty.subArea}</p>
+                <p>Plot Number: {selectedProperty.plotNumber}</p>
+                <Link to={`/property/${selectedProperty._id}`}>
+                  <button style={{ backgroundColor: "#4CAF50", color: "white", padding: "10px", border: "none", cursor: "pointer", borderRadius: "5px", marginTop: "10px" }}>
+                    View Details
+                  </button>
+                </Link>
+              </div>
+            </InfoWindow>
+          )}
         </GoogleMap>
       )}
       {!isLoaded && <div>Loading...</div>}

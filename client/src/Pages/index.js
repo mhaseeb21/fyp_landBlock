@@ -9,6 +9,7 @@ import MarketPlace from "./MarketPlcae";
 import Settings from "./Settings";
 import ShowcaseManagement from "./ShowcaseManagement";
 import UserManagement from "./UserManagement";
+import Blog from "./Blog";
 
 export {
   Login,
@@ -22,4 +23,5 @@ export {
   Settings,
   ShowcaseManagement,
   UserManagement,
+  Blog,
 };

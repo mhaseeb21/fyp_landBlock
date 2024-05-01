@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logo, background } from "../Assets/index";
-
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,81 +34,87 @@ const Register = () => {
     }
   };
   return (
+
+    <div>
+      <Header/>
     <div
-      className="flex flex-col items-center justify-center h-screen"
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-      }}>
-      <div className="text-center mt-5">
-        <img
-          className="w-80 h-70 mb-15 mx-auto min-w-[150px]"
-          src={logo}
-          alt="logo"
-        />
-        <form onSubmit={registerUser} className="mx-auto mb-5 mt-4 max-w-md">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mt-4 mb-2 text-gray-600 text-left">
-              Register
-            </h1>
-            <p className="text-gray-500 text-left">
-              Already have an account?{" "}
-              <span
-                onClick={(e) => navigate("/")}
-                className="text-lime-500 cursor-pointer">
-                Sign In
-              </span>
-            </p>
-          </div>
-          <div className="text-left">
-            <span className="">Full Name</span>
+      className="container d-flex justify-content-center align-items-center min-vh-100 "
+      style={{ backgroundImage: `url(${background})`, backgroundSize: "400px"  }}
+    >
+      <div className="card p-4">
+        <div className="text-center">
+          <img
+            className="mb-4"
+            src={logo}
+            alt="logo"
+            style={{ width: "250px", height: "200px" }}
+          />
+          <h1 className="mb-4">Register</h1>
+          <p className="text-muted mb-4">
+            Already have an account?{" "}
+            <span className="text-primary">Sign In</span>
+          </p>
+        </div>
+        <form onSubmit={registerUser}>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">
+              Full Name
+            </label>
             <input
+              type="text"
+              className="form-control"
+              id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Full Name"
-              type="text"
-              className="w-full px-4 py-4 border rounded-lg mb-4"
+              placeholder="Enter your full name"
             />
           </div>
-          <div className="text-left">
-            <span className="">Email</span>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
             <input
+              type="email"
+              className="form-control"
+              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              type="email"
-              className="w-full px-4 py-4 border rounded-lg mb-4"
+              placeholder="Enter your email"
             />
           </div>
-          <div className="text-left">
-            <span className="">Role</span>
+          <div className="mb-3">
+            <label htmlFor="role" className="form-label">
+              Role
+            </label>
             <input
+              type="text"
+              className="form-control"
+              id="role"
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              placeholder="Role"
-              type="text"
-              className="w-full px-4 py-4 border rounded-lg mb-4"
+              placeholder="Enter your role"
             />
           </div>
-          <div className="text-left">
-            <span className="">Password</span>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
             <input
+              type="password"
+              className="form-control"
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              type="password"
-              className="w-full px-4 py-4 border rounded-lg mb-4"
+              placeholder="Enter your password"
             />
           </div>
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="bg-lime-500 text-white py-2 px-4 rounded-sm">
-              Register
-            </button>
-          </div>
+          <button type="submit" className="btn btn-primary w-100 text-dark">
+            Register
+          </button>
         </form>
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 };

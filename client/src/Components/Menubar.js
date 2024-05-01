@@ -12,36 +12,42 @@ import {
   customer,
   logout,
 } from "../Assets/index";
+import { useNavigate } from "react-router-dom";
+
+
 
 const Menubar = () => {
   const [selectedItem, setSelectedItem] = useState(null);
+  const navigate = useNavigate()
 
   const menuItems = [
-    { name: "Dashboard", icon: dashboard, link: "/dashboard" },
+    { name: "Profile", icon: dashboard, link: "/dashboard" },
     {
-      name: "map",
+      name: "Map",
       icon: user,
       link: "/map",
     },
     {
-      name: "Customer Management",
+      name: "KYC",
       icon: customer,
       link: "/customer-management",
     },
     {
-      name: "Content Management",
-      icon: content,
-      link: "/content-management",
-    },
-    {
-      name: "Showcase Management",
+      name: "Management",
       icon: showcase,
       link: "/showcase-management",
     },
     {
-      name: "Home Service Management",
+      name: "Registry Submission On BlockChain",
+      icon: content,
+      link: "/content-management",
+    },
+ 
+
+    {
+      name: "Property Registration form",
       icon: home,
-      link: "/home-service",
+      link: "/register-property",
     },
     {
       name: "Market Place Management",
@@ -56,14 +62,19 @@ const Menubar = () => {
     setSelectedItem(item);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); // Remove authToken from localStorage
+    navigate('/')
+  };
+
   return (
-    <div className="flex flex-col h-full w-full">
+    <div className="flex flex-col h-full w-full bg-dark">
       <div className="flex items-center justify-center h-20">
-        <img src={logo} alt="Company Logo" className="h-20 w-30 pt-5" />
+        <h1 className="text-white fw-bold d-block">Land<span className="text-secondary">Block</span></h1>
       </div>
-      <div className="flex-1 flex flex-col justify-between">
+      <div className="flex-1 flex flex-col justify-between text-white">
         <div className="flex flex-col items-start pt-20">
-          <span className="px-5 py-2 text-black">Menu</span>
+          <span className="px-5 py-2 text-white">Menu</span>
           {menuItems.map((item, index) => (
             <a
               key={index}
@@ -83,9 +94,15 @@ const Menubar = () => {
             window.location.href = "/";
           }}>
           <img src={logout} alt="Logout" className="h-6 w-6 mr-2" />
-          <span className="hidden sm:inline-block text-red-500 text-2xl ">
-            Logout
-          </span>
+          <div>
+      {/* Other content */}
+      <button
+        className="hidden sm:inline-block text-red-500 text-2xl"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+    </div>
         </div>
       </div>
     </div>

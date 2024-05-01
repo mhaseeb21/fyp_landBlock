@@ -21,7 +21,7 @@ const User = new mongoose.Schema(
     },
   },
   {
-    collection: "user-data",
+    collection: "user",
   }
 );
 

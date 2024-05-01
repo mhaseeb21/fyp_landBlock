@@ -1,0 +1,5 @@
+.footer a.text-white:hover {
+    color: #ffffff; /* Change to your desired hover color */
+    text-decoration: none; /* Remove underline on hover if needed */
+  }
+  
