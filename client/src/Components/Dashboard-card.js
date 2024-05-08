@@ -14,7 +14,6 @@ const Card = ({ title, subtitle, icon, color }) => {
       <div className="flex justify-end">
        
        
-        <img src={icon} alt="icon" className="h-10 w-10" />
       </div>
     
     </div>

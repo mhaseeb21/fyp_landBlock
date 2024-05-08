@@ -1,0 +1,31 @@
+/* PropertyList.css */
+
+.property-list-container {
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.property-list-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.property-list {
+    list-style: none;
+    padding: 0;
+}
+
+.property-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.property-item strong {
+    font-weight: bold;
+    margin-right: 5px;
+}

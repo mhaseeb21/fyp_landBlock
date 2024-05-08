@@ -80,7 +80,7 @@ const Map = () => {
           ))}
           {selectedProperty && (
             <InfoWindow
-              position={{ lat: selectedProperty.location.coordinates[1], lng: selectedProperty.location.coordinates[0] }}
+              position={{ lat: selectedProperty.location.longitude, lng: selectedProperty.location.latitude }}
               onCloseClick={handleCloseInfoWindow}
             >
               <div style={{ maxWidth: "200px", padding: "10px" }}>

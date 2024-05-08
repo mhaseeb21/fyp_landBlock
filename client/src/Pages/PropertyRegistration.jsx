@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
-import ABI from "../Components/ABI.json"; // Assuming you have stored contract ABI in ABI.json
+import LandblockABI from "./LandblockABI.json"; // Assuming you have stored contract ABI in LandblockABI.json
 
-const PropertyRegistration = () => 
-{
+const PropertyRegistration = () => {
   const [web3, setWeb3] = useState(null);
   const [contractInstance, setContractInstance] = useState(null);
   const [propertyDetails, setPropertyDetails] = useState({
@@ -11,6 +10,8 @@ const PropertyRegistration = () =>
     propertyOwnerName: "",
     ownerAddress: "",
   });
+  const [ownerAddress, setOwnerAddress] = useState("");
+  const [storedProperty, setStoredProperty] = useState(null);
 
   useEffect(() => {
     // Initialize Web3 and set contract instance
@@ -24,8 +25,8 @@ const PropertyRegistration = () =>
 
           // Get contract instance
           const contract = new web3.eth.Contract(
-            ABI,
-            "0xA23C72C419b9BC38cEFbF683a0e6F9D2B52b148F"
+            LandblockABI,
+            "0x331bea6aFDb3e408a2461ECED35fA5832f968d87" // Replace with your contract address
           );
           setContractInstance(contract);
         } else {
@@ -50,8 +51,7 @@ const PropertyRegistration = () =>
       await contractInstance.methods
         .registerProperty(
           propertyDetails.propertyAddress,
-          propertyDetails.propertyOwnerName,
-          propertyDetails.ownerAddress
+          propertyDetails.propertyOwnerName
         )
         .send({ from: window.ethereum.selectedAddress });
       console.log("Property registered successfully!");
@@ -60,63 +60,101 @@ const PropertyRegistration = () =>
     }
   };
 
-  return (
-    <div class="container">
-  <h2>Property Registration</h2>
-  <form onSubmit={handleSubmit}>
-    <div class="mb-3">
-      <label for="propertyAddress" class="form-label">Property Address:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="propertyAddress"
-        name="propertyAddress"
-        value={propertyDetails.propertyAddress}
-        onChange={handleChange}
-      />
-    </div>
-    <div class="mb-3">
-      <label for="propertyOwnerName" class="form-label">Property Owner Name:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="propertyOwnerName"
-        name="propertyOwnerName"
-        value={propertyDetails.propertyOwnerName}
-        onChange={handleChange}
-      />
-    </div>
-    <div class="mb-3">
-      <label for="ownerAddress" class="form-label">Owner Address:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="ownerAddress"
-        name="ownerAddress"
-        value={propertyDetails.ownerAddress}
-        onChange={handleChange}
-      />
-    </div>
-    <button style={{color:"black"}} type="submit" class="btn btn-primary">Register Property</button>
-  </form>
-</div>
+  const handleOwnerAddressChange = (e) => {
+    setOwnerAddress(e.target.value);
+  };
 
+  const handleGetProperties = async (e) => {
+    e.preventDefault();
+    try {
+      const propertyIds = await contractInstance.methods
+        .getPropertiesByOwner(ownerAddress)
+        .call();
+      const properties = await Promise.all(
+        propertyIds.map(async (propertyId) => {
+          return await contractInstance.methods.properties(propertyId).call();
+        })
+      );
+      setStoredProperty(properties);
+    } catch (error) {
+      console.error("Error fetching properties:", error);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2>Property Registration</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="propertyAddress" className="form-label">
+            Property Address:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="propertyAddress"
+            name="propertyAddress"
+            value={propertyDetails.propertyAddress}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="propertyOwnerName" className="form-label">
+            Property Owner Name:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="propertyOwnerName"
+            name="propertyOwnerName"
+            value={propertyDetails.propertyOwnerName}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Register Property
+        </button>
+      </form>
+
+      <hr />
+
+      <h2>Get Properties by Owner</h2>
+      <form onSubmit={handleGetProperties}>
+        <div className="mb-3">
+          <label htmlFor="ownerAddress" className="form-label">
+            Owner Address:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="ownerAddress"
+            name="ownerAddress"
+            value={ownerAddress}
+            onChange={handleOwnerAddressChange}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Get Properties
+        </button>
+      </form>
+
+      {storedProperty && (
+        <div>
+          <h3>Properties owned by {ownerAddress}</h3>
+          <ul>
+            {storedProperty.map((property, index) => (
+              <li key={index}>
+                <strong>Property ID:</strong> {property.id}<br />
+                <strong>Address:</strong> {property.propertyAddress}<br />
+                <strong>Owner Name:</strong> {property.propertyOwnerName}<br />
+                <strong>Verified:</strong> {property.verified ? 'Yes' : 'No'}<br />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 };
 
 export default PropertyRegistration;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

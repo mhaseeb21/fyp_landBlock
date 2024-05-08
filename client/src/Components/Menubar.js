@@ -50,7 +50,7 @@ const Menubar = () => {
       link: "/register-property",
     },
     {
-      name: "Market Place Management",
+      name: "Transfer Property",
       icon: market,
       link: "/market-place",
     },

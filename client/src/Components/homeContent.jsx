@@ -1,5 +1,5 @@
 import React from 'react'
-import carousel1 from '../Assets/carousel1.jpg'; // Importing carousel images
+import carousel1 from '../Assets/carousel1.webp'; // Importing carousel images
 import carousel2 from '../Assets/carousel2.jpg';
 
 
@@ -15,7 +15,7 @@ function homeContent () {
             </ol>
             <div className="carousel-inner" role="listbox">
               <div className="carousel-item active">
-                <img src={carousel1} className="img-fluid" alt="First slide" />
+                <img src={carousel1} className="img-fluid" alt="First slide" style={{ width: "100%", height: "auto", borderRadius: "5px" }}/>
                 <div className="carousel-caption">
                   <div className="container carousel-content">
                     <h6 className="text-secondary h4 animated fadeInUp">Best IT Solutions</h6>
@@ -26,7 +26,7 @@ function homeContent () {
                 </div>
               </div>
               <div className="carousel-item">
-                <img src={carousel2} className="img-fluid" alt="Second slide" />
+                <img src={carousel2} className="img-fluid" alt="Second slide" style={{ width: "100%", height: "auto", borderRadius: "5px" }} />
                 <div className="carousel-caption">
                   <div className="container carousel-content">
                     <h6 className="text-secondary h4 animated fadeInUp">Best IT Solutions</h6>

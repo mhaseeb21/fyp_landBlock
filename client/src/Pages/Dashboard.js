@@ -56,29 +56,38 @@ const Dashboard = () => {
             // Add more fields as needed
           />
         </div>
+  
       ))}
+  
     </div>
           <div className="mt-8 mx-4">
             <table className="table-auto border border-gray-300 w-full">
               <thead>
                 <tr>
-                  <th className="border border-gray-300 p-2">Verified</th>
-                  <th className="border border-gray-300 p-2"><i class="bi bi-patch-check"></i></th>
+                  <th className="border border-gray-300 p-2">User Id</th>
+                  {users.map(user=>(
+                  <th className="border border-gray-300 p-2">{user._id}</th>
+                  ))}
+                 
                 </tr>
               </thead>
               <tbody>
                
                   <tr>
                     <td className="border border-gray-300 p-2">Address</td>
-                    <td className="border border-gray-300 p-2">Seecs h12 nust</td>
+                    <td className="border border-gray-300 p-2">Islamabad E-10</td>
                   </tr>
                   <tr>
                     <td className="border border-gray-300 p-2">City</td>
                     <td className="border border-gray-300 p-2">Islamabad</td>
+                  </tr> 
+                     <tr>
+                    <td className="border border-gray-300 p-2">Property Id</td>
+                    <td className="border border-gray-300 p-2">6630e655a80a2cb5af4ce74d</td>
                   </tr>
                   <tr>
                     <td className="border border-gray-300 p-2">Properties Owned</td>
-                    <td className="border border-gray-300 p-2">0</td>
+                    <td className="border border-gray-300 p-2">1</td>
                   </tr>
               </tbody>
             </table>

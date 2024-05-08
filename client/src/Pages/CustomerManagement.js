@@ -4,39 +4,45 @@ import MenuToggle from "../Components/MenuToggle";
 import Navbar from "../Components/Navbar";
 import axios from 'axios';
 
-
-
-const CustomerManagement = () => 
-{
+const CustomerManagement = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
 
-  const handleMenuToggle = () => 
-  {
+  const handleMenuToggle = () => {
     setShowMenu(!showMenu);
   };
 
+  const [postal_address, setPostal_address] = useState("");
+  const [city, setCity] = useState("");
+  const [verificationDocument, setVerificationDocument] = useState("");
+  const [frontImage, setFrontImage] = useState("");
+  const [backImage, setBackImage] = useState("");
 
-
-  const [postal_address,setpostal_address] = useState()
-  const [city,setcity] = useState()
-  const [verificationDocument,setverificationDocument] = useState()
-  const [frontImage,setfrontImage] = useState()
-  const [backImage,setbackImage] = useState()
-
-  const handleSubmit = (e) =>{
-    e.preventDefault()
-    axios.post('http://localhost:5000/kyc', {postal_address, city, verificationDocument, frontImage, backImage})
-    .then(result=>console.log(result))
-    .catch(err=> console.log(err))
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:5000/kyc', {
+      postal_address,
+      city,
+      verificationDocument,
+      frontImage,
+      backImage
+    })
+    .then(result => {
+      console.log(result);
+      setSuccessMessage("Form submitted successfully.");
+      // Clear form fields after successful submission
+      setPostal_address("");
+      setCity("");
+      setVerificationDocument("");
+      setFrontImage("");
+      setBackImage("");
+    })
+    .catch(err => console.log(err));
   }
 
   return (
     <div className="flex">
-      <div
-        className={`w-1/4 h-auto h-screen bg-gray-200 text-gray-500 ${
-          showMenu ? "" : "hidden"
-        } lg:block`}
-      >
+      <div className={`w-1/4 h-auto h-screen bg-gray-200 text-gray-500 ${showMenu ? "" : "hidden"} lg:block`}>
         <Menubar />
       </div>
       <div className="w-3/4 h-screen">
@@ -46,6 +52,8 @@ const CustomerManagement = () =>
         <div className="flex-1 flex items-center justify-center">
           <div className="w-3/4">
             <form className="mt-8" onSubmit={handleSubmit}>
+              {/* Display success message */}
+              {successMessage && <div className="text-green-600">{successMessage}</div>}
               <div className="form-group">
                 <label htmlFor="address">Enter Your postal address</label>
                 <input
@@ -54,7 +62,8 @@ const CustomerManagement = () =>
                   id="postal_address"
                   name="postal_address"
                   placeholder="postal_address"
-                  onChange={(e) => setpostal_address(e.target.value)}
+                  value={postal_address}
+                  onChange={(e) => setPostal_address(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -65,7 +74,8 @@ const CustomerManagement = () =>
                   id="city"
                   name="city"
                   placeholder="City"
-                  onChange={(e) => setcity(e.target.value)}
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -74,7 +84,8 @@ const CustomerManagement = () =>
                   className="form-control"
                   id="verificationDocument"
                   name="verificationDocument"
-                  onChange={(e) => setverificationDocument(e.target.value)}>
+                  value={verificationDocument}
+                  onChange={(e) => setVerificationDocument(e.target.value)}>
                   <option value="">Select Document</option>
                   <option value="National ID">National ID</option>
                   <option value="Driving license">Driving License</option>
@@ -88,7 +99,8 @@ const CustomerManagement = () =>
                   className="form-control-file"
                   id="frontImage"
                   name="frontImage"
-                  onChange={(e) => setfrontImage(e.target.value)}
+                  value={frontImage}
+                  onChange={(e) => setFrontImage(e.target.value)}
                 />
               </div>
               <div className="form-group mt-2">
@@ -98,7 +110,8 @@ const CustomerManagement = () =>
                   className="form-control-file"
                   id="backImage"
                   name="backImage"
-                  onChange={(e) => setbackImage(e.target.value)}
+                  value={backImage}
+                  onChange={(e) => setBackImage(e.target.value)}
                 />
               </div>
               <button type="submit" className="btn btn-primary text-dark mt-2">

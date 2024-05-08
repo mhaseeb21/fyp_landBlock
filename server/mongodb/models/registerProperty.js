@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const registerPropertySchema = new mongoose.Schema(
   {
+    userId: String,
     ownerName: String,
     city: String,
     subArea: String,
@@ -9,13 +10,13 @@ const registerPropertySchema = new mongoose.Schema(
     plotNumber: String,
     image1: String,
     image2: String,
-    location: {
-      type: {
-        type: String,
-        default: "Point",
-      },
-      coordinates: [Number], // [longitude, latitude]
+    status: {
+      type: Boolean,
+      default: false, // Default value false
     },
+    latitude: Number,
+    longitude: Number
+
   }
 );
 

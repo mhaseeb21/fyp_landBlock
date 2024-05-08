@@ -18,8 +18,8 @@ app.use(express.json());
 
 const jwt_secret = 'thisismysecret'
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json()); // Parse JSON bodies
 app.use(express.text());
 
 app.use("/api/register", async (req, res) => {
