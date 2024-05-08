@@ -17,6 +17,11 @@ import Homepage from "./Pages/Homepage";
 import Map from "./Pages/Map";
 import PropertyDetails from "./Pages/Property";
 
+// Import admin panel components directly from their directories
+import AdminDashboard from "./admin_pages/AdminDashboard";
+import AdminUsers from "./admin_pages/AdminUsers";
+import AdminSettings from "./admin_pages/AdminSettings";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -27,6 +32,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+
           <Route path="/role-management" element={<Role />} />
           <Route path="/content-management" element={<ContentManagement />} />
           <Route path="/customer-management" element={<CustomerManagement />} />
@@ -37,6 +43,18 @@ const App = () => {
           <Route path="/user-management" element={<UserManagement />} />
           <Route path="/map" element={<Map />} />
           <Route path="/property/:id" element={<PropertyDetails />} />
+
+
+
+        {/* //admin  */}
+
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
+
+
+
+
         </Routes>
         <br />
         
