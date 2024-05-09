@@ -6,7 +6,8 @@ import axios from 'axios';
 
 const CustomerManagement = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(""); // State for success message
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message[]
+  const [userId, setUserId] = useState("");
 
   const handleMenuToggle = () => {
     setShowMenu(!showMenu);
@@ -19,8 +20,15 @@ const CustomerManagement = () => {
   const [backImage, setBackImage] = useState("");
 
   const handleSubmit = (e) => {
+    const userId = localStorage.getItem("authToken");
+    setUserId(userId)
+    if (!userId) {
+      console.error("User ID not found in localStorage");
+      return;
+    }
     e.preventDefault();
     axios.post('http://localhost:5000/kyc', {
+      userId,
       postal_address,
       city,
       verificationDocument,

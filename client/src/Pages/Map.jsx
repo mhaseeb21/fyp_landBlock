@@ -74,13 +74,13 @@ const Map = () => {
           {properties.map((property) => (
             <Marker
               key={property._id}
-              position={{ lat: property.location.coordinates[1], lng: property.location.coordinates[0] }}
+              position={{ lat: property.latitude, lng: property.longitude }}
               onClick={() => handleMarkerClick(property)}
             />
           ))}
           {selectedProperty && (
             <InfoWindow
-              position={{ lat: selectedProperty.location.longitude, lng: selectedProperty.location.latitude }}
+              position={{ lat: selectedProperty.longitude, lng: selectedProperty.latitude }}
               onCloseClick={handleCloseInfoWindow}
             >
               <div style={{ maxWidth: "200px", padding: "10px" }}>

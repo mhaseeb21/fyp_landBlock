@@ -39,8 +39,8 @@ const HomeService = () => {
           subArea,
           street_no,
           plotNumber,
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          latitude: latitude? latitude:position.coords.latitude,
+          longitude: longitude? longitude:position.coords.longitude,
           image1,
           image2,
         })
@@ -79,6 +79,7 @@ const HomeService = () => {
     const fetchUserData = async () => {
       try {
         const userId = localStorage.getItem("authToken");
+        setUserId(userId)
         if (!userId) {
           console.error("User ID not found in localStorage");
           return;

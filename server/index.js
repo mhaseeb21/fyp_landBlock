@@ -49,6 +49,8 @@ app.post('/kyc', (req,res) => {
     KycModel.create(req.body)
     .then (Kycs => res.json(Kycs))
     .catch(err => res.json(err))
+
+    console.log(Kycs)
 } 
 );
 

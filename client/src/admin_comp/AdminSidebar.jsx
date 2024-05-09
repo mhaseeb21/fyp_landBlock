@@ -2,14 +2,24 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './AdminSidebar.css'; // Import CSS file for styling
 
 function AdminSidebar() {
   return (
-    <div className="sidebar">
-      <ul>
-        <li><Link to="/">Admin Dashboard</Link></li>
-        <li><Link to="/users">Admin Users</Link></li>
-        <li><Link to="/settings">Admin Settings</Link></li>
+    <div className="admin-sidebar">
+      <div className="sidebar-header">
+        <h3>Admin Panel</h3>
+      </div>
+      <ul className="sidebar-menu">
+        <li>
+          <Link to="/admin" className="sidebar-link">User Kyc Requests</Link>
+        </li>
+        <li>
+          <Link to="/admin/users" className="sidebar-link">Property Registration Requests</Link>
+        </li>
+        <li>
+          <Link to="/admin/settings" className="sidebar-link">Admin Settings</Link>
+        </li>
       </ul>
     </div>
   );

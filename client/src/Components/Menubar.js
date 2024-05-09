@@ -13,6 +13,7 @@ import {
   logout,
 } from "../Assets/index";
 import { useNavigate } from "react-router-dom";
+import './Menubar.css';
 
 
 
@@ -74,18 +75,20 @@ const Menubar = () => {
       </div>
       <div className="flex-1 flex flex-col justify-between text-white">
         <div className="flex flex-col items-start pt-20">
-          <span className="px-5 py-2 text-white">Menu</span>
+          <span className="px-5 py-2 text-white ">Menu</span>
           {menuItems.map((item, index) => (
+            <div className="w-full">
             <a
               key={index}
               href={item.link}
               className={`px-4 py-3 flex items-center ${
-                selectedItem === item ? "text-lime-500" : "hover:text-gray"
+                selectedItem === item ? "text-lime-500" : "hover:bg-black hover:text-gray"
               }`}
               onClick={() => handleItemClick(item)}>
               <img src={item.icon} alt={item.name} className="h-5 w-5 mr-2" />
               <span className="hidden sm:inline-block">{item.name}</span>
             </a>
+            </div>
           ))}
         </div>
         <div

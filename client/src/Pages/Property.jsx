@@ -37,8 +37,8 @@ const PropertyDetails = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         {/* Images */}
         <div style={{ display: "flex", alignItems: "center", maxWidth: "800px", margin: "0 auto" }}>
-          <img src={plot1} alt="Property" style={{ width: "50%", marginRight: "10px" }} />
-          <img src={plot2} alt="Property" style={{ width: "50%", marginLeft: "10px" }} />
+          <img src={property.image1} alt="Property" style={{ width: "50%", marginLeft: "10px" }} />
+          <img src={property.image2} alt="Property" style={{ width: "50%", marginRight: "10px" }} />
         </div>
       </div>
 
